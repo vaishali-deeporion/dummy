@@ -604,18 +604,19 @@ http.listen(PORT, () => {
     console.log(`🚀 Visual Regression Testing Server running on port ${PORT}`);
     console.log(`📊 Open http://localhost:${PORT} to start testing`);
     
-    // Ensure BackstopJS is installed
+    // Check if BackstopJS is available locally
     const { exec } = require('child_process');
     exec('npx backstop --version', (error, stdout, stderr) => {
         if (error) {
-            console.log('⚠️  BackstopJS not found. Installing...');
-            exec('npm install -g backstopjs', (installError) => {
-                if (installError) {
-                    console.error('❌ Failed to install BackstopJS:', installError);
-                } else {
-                    console.log('✅ BackstopJS installed successfully');
-                }
-            });
+            console.log('⚠️  BackstopJS not found locally. Checking node_modules...');
+            const fs = require('fs');
+            const path = require('path');
+            const backstopPath = path.join(__dirname, 'node_modules', '.bin', 'backstop');
+            if (fs.existsSync(backstopPath)) {
+                console.log('✅ BackstopJS found in node_modules');
+            } else {
+                console.error('❌ BackstopJS not found. Please run: npm install');
+            }
         } else {
             console.log('✅ BackstopJS is ready:', stdout.trim());
         }
