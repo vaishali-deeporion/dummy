@@ -1,0 +1,21 @@
+nohup: ignoring input
+🚀 Visual Regression Testing Server running on port 3000
+📊 Open http://localhost:3000 to start testing
+✅ BackstopJS is ready: BackstopJS v6.3.25
+Client connected: CYZR8Jw-A9XLJj0gAAAB
+Client disconnected: CYZR8Jw-A9XLJj0gAAAB
+Client connected: P_Vh3qq0NU8dRpopAAAD
+Client disconnected: P_Vh3qq0NU8dRpopAAAD
+Client connected: gStv0BD6UTUbvNL6AAAF
+Starting to crawl website for routes...
+Crawling: https://hiring.staging.deeporion.com/
+Crawling: https://hiring.staging.deeporion.com/forgot
+Found 2 routes: [ '/', '/forgot' ]
+Processing URL: https://hiring.staging.deeporion.com/
+✅ Scroll and lazy-loaded images loaded
+Processing URL: https://hiring.staging.deeporion.com/
+✅ Scroll and lazy-loaded images loaded
+Processing URL: https://hiring.staging.deeporion.com/forgot
+✅ Scroll and lazy-loaded images loaded
+Processing URL: https://hiring.staging.deeporion.com/forgot
+✅ Scroll and lazy-loaded images loaded

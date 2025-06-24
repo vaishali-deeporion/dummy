@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  backstop-backend:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome
+      - PUPPETEER_ARGS=--no-sandbox,--disable-setuid-sandbox,--disable-dev-shm-usage,--disable-gpu
+    volumes:
+      - backstop_data:/usr/src/app/backstop_data
+      - uploads:/usr/src/app/uploads
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+        reservations:
+          memory: 1G
+          cpus: '0.5'
+
+  # Load balancer for multiple instances (optional)
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backstop-backend
+    restart: unless-stopped
+
+volumes:
+  backstop_data:
+    driver: local
+  uploads:
+    driver: local
+
+networks:
+  default:
+    driver: bridge 
